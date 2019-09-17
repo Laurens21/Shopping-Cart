@@ -121,4 +121,24 @@ class ProductController extends AbstractController
             
         return $this->redirectToRoute("cart");
     }
+
+        /**
+     * @Route("/{id}/del", name="product_del", methods={"GET","POST"})
+     */
+    public function del(Product $product, ProductRepository $productRepository): Response
+    {
+        $cart = $this->session->get('Cart');
+        $id = $product->getId();
+            if(isset($cart[$id])) {
+                $cart[$id]['Aantal']--;
+            } else {
+                $cart[$id]['Aantal'] = 1;
+            }
+                
+            $this->session->set('Cart', $cart);
+
+            // var_dump($this->session->get('Cart'));
+            
+        return $this->redirectToRoute("cart");
+    }
 }

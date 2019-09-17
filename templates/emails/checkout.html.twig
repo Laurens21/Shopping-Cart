@@ -1,0 +1,26 @@
+<h3>Hallo {{ Naam }}</h3>
+
+<p>Hier is uw bestellijst</p>
+
+<table> 
+    <tr>
+        <th>Naam</th>
+        <th>Prijs</th>
+        <th>Aantal</th>
+        <th>Totaal</th>
+    </tr>
+{% for product in Products %}
+    <tr>
+        <td data-th="Product">
+            <p class="nomargin">{{ product.Product.Naam }}</p>
+        </td>
+        <td data-th="Price">€ <span class="price">{{ product.Product.Prijs }}</span></td>
+        <td data-th="Quantity">
+            <p class="form-control text-center amount">{{ product.Aantal }}</p>
+        </td>
+        <td>
+            <p class="form-control text-center amount">{{ product.Aantal * product.Product.Prijs }}</p>
+        </td>
+    </tr>
+{% endfor %}
+</table>

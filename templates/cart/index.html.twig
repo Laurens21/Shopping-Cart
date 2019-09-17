@@ -7,11 +7,12 @@
         <h1>Winkelwagen</h1>
             <table class="table">
                 <tr>
-                    <td>Naam</td>
-                    <td>Categorie</td>
-                    <td>Aantal</td>
-                    <td>Prijs</td>
-                    <td>Totaal Prijs</td>
+                    <th>Naam</th>
+                    <th>Categorie</th>
+                    <th>Omschrijving</th>
+                    <th>Aantal</th>
+                    <th>Prijs</th>
+                    <th>Totaal Prijs</th>
                 </tr>
                 {% for product in Products %}
                 <tr>
@@ -20,6 +21,9 @@
                     </td>
                     <td>
                         {{ product.Product.categorieid }}
+                    </td>
+                    <td>
+                        {{ product.Product.omschrijving }}
                     </td>
                     <td>
                         {{ product.Aantal }}
@@ -31,7 +35,16 @@
                         {{ product.Product.Prijs * product.Aantal}}
                     </td>
                 </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
                 {% endfor %}
             </table>
+            {% if Products != null %}
+            <div style="display: flex; justify-content:flex-end">
+                    <a class="btn btn-secondary" href="{{ path('checkout') }}">Checkout</a>
+                </div>
+            {% endif %}
 </div>
 {% endblock %}

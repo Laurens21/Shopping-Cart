@@ -25,9 +25,10 @@
                 <td>{{ product.afbeelding }}</td>
                 <td>{{ product.omschrijving }}</td>
                 <td>
-                    <a class="btn btn-success" href="{{ path('product_show', {'id': product.id}) }}">show</a>
+                    <a class="btn btn-secondary" href="{{ path('product_show', {'id': product.id}) }}">show</a>
                     <a class="btn btn-warning" href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-                    <a class="btn btn-secondary" href="{{ path('product_add', {'id': product.id}) }}">add to cart</a>
+                    <a class="btn btn-success" href="{{ path('product_add', {'id': product.id}) }}">add to cart</a>
+                    <a class="btn btn-danger" href="{{ path('product_del', {'id': product.id}) }}">delete from cart</a>
                 </td>
             </tr>
         {% else %}
