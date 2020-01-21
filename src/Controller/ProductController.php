@@ -111,6 +111,8 @@ class ProductController extends AbstractController
      */
     public function add(Product $product, ProductRepository $productRepository): Response
     {
+        $code = $this->session->get('Code', []);
+
         $cart = $this->session->get('Cart');
         $id = $product->getId();
             if(isset($cart[$id])) {
@@ -122,8 +124,14 @@ class ProductController extends AbstractController
             $this->session->set('Cart', $cart);
 
             // var_dump($this->session->get('Cart'));
-            
-        return $this->redirectToRoute("cart");
+        if($code == 1){
+            return $this->redirectToRoute("cart");
+        }
+        elseif($code == 2) {
+            return $this->redirectToRoute("product_index");
+        }else{
+            return $this->redirectToRoute("default");
+        }
     }
 
         /**
@@ -135,7 +143,7 @@ class ProductController extends AbstractController
         $id = $product->getId();
             if(isset($cart[$id])) {
                 $cart[$id]['Aantal']--;
-                if($cart[$id]['Aantal'] <=1){
+                if($cart[$id]['Aantal'] <1){
                     unset($cart[$id]);
                 }
             }

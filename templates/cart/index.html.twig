@@ -27,7 +27,7 @@
                         {{ product.Product.omschrijving }}
                     </td>
                     <td style="display: flex; justify-content:space-around; align-items:center">
-                        <a class="btn btn-secondary" href="{{ path('product_remove', {'id': product.Product.id}) }}">-</a> {{ product.Aantal }} <a class="btn btn-secondary" href="{{ path('product_add', {'id': product.Product.id}) }}">+</a>
+                        <a class="btn btn-secondary" href="{{ path('product_remove', {'id': product.Product.id}) }}">-</a> {{ product.Aantal }} <a class="btn btn-secondary" value="{{app.session.set('Code', 1)}}" href="{{path('product_add', {'id': product.Product.id}) }}">+</a>
                     </td>
                     <td>
                         {{ product.Product.Prijs|number_format(0, '', '.') }}
