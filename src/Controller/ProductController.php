@@ -30,8 +30,12 @@ class ProductController extends AbstractController
      */
     public function index(ProductRepository $productRepository): Response
     {
+        $cart = $this->session->get('Cart', []);
+
+
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
+            'cart' => $cart
         ]);
     }
 
@@ -130,9 +134,7 @@ class ProductController extends AbstractController
         $cart = $this->session->get('Cart');
         $id = $product->getId();
             if(isset($cart[$id])) {
-                $cart[$id]['Aantal']--;
-            } else {
-                $cart[$id]['Aantal'] = 1;
+                unset($cart[$id]);
             }
                 
             $this->session->set('Cart', $cart);

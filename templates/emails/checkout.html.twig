@@ -1,26 +1,47 @@
-<h3>Hallo {{ Naam }}</h3>
-
+<p>Bedrijf: </p>
+<p>Locatie: </p>
+<p>Datum: {{ "now"|date('Y-m-d H:i:s') }}</p>
+<br>
+<p>Hallo {{ Naam }}</h3>
 <p>Hier is uw bestellijst</p>
 
-<table> 
-    <tr>
+<table border="2" style="border-color:black; text-align: center; font-family: Helvetica">
+    <tr style="padding:2px;">
         <th>Naam</th>
-        <th>Prijs</th>
+        <th>Categorie</th>
+        <th>Omschrijving</th>
         <th>Aantal</th>
-        <th>Totaal</th>
+        <th>Prijs</th>
     </tr>
-{% for product in Products %}
-    <tr>
-        <td data-th="Product">
-            <p class="nomargin">{{ product.Product.Naam }}</p>
-        </td>
-        <td data-th="Price">€ <span class="price">{{ product.Product.Prijs }}</span></td>
-        <td data-th="Quantity">
-            <p class="form-control text-center amount">{{ product.Aantal }}</p>
+    {% set totalPrice = 0 %}
+    {% for product in Products %}
+    <tr style="padding:2px; ">
+        <td>
+            {{ product.Product.Naam }}
         </td>
         <td>
-            <p class="form-control text-center amount">{{ product.Aantal * product.Product.Prijs }}</p>
+            {{ product.Product.categorieid }}
+        </td>
+        <td>
+            {{ product.Product.omschrijving }}
+        </td>
+        <td>
+            {{ product.Aantal }}
+        </td>
+        <td>
+            {{ product.Product.Prijs }}
         </td>
     </tr>
-{% endfor %}
+        {% set totalPrice = totalPrice + (product.Aantal * product.Product.Prijs)|number_format(2, '.', ',') %}
+    {% else %}
+        <tr>
+            <td colspan="6">no records found</td>
+        </tr>
+    {% endfor %}
+    {% if totalPrice != null %}
+        <tr style="padding:2px; ">
+            <td colspan="3"></td>
+            <th colspan="2">Totaal prijs : {{ totalPrice }}</th>
+        </tr>
+    {% endif %}
 </table>

@@ -5,10 +5,9 @@
 {% block body %}
     <h1>Product index</h1>
 
-    <table class="table">
+    <table style="text-align: center;" class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Naam</th>
                 <th>Prijs</th>
                 <th>Afbeelding</th>
@@ -19,7 +18,6 @@
         <tbody>
         {% for product in products %}
             <tr>
-                <td>{{ product.id }}</td>
                 <td>{{ product.naam }}</td>
                 <td>{{ product.prijs }}</td>
                 <td>{{ product.afbeelding }}</td>
@@ -28,7 +26,11 @@
                     <a class="btn btn-secondary" href="{{ path('product_show', {'id': product.id}) }}">show</a>
                     <a class="btn btn-warning" href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
                     <a class="btn btn-success" href="{{ path('product_add', {'id': product.id}) }}">add to cart</a>
-                    <a class="btn btn-danger" href="{{ path('product_del', {'id': product.id}) }}">delete from cart</a>
+                    <!-- {% for cartProduct in cart|keys %}
+                        {% if cartProduct == product.id %}
+                            <a class="btn btn-danger" href="{{ path('product_del', {'id': product.id}) }}">delete from cart</a>
+                        {% endif %}
+                    {% endfor %} -->
                 </td>
             </tr>
         {% else %}

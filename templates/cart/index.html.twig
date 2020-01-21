@@ -5,15 +5,16 @@
 {% block body %}
 <div class="example-wrapper">
         <h1>Winkelwagen</h1>
-            <table class="table">
+            <table class="table" style="text-align: center;">
                 <tr>
                     <th>Naam</th>
                     <th>Categorie</th>
                     <th>Omschrijving</th>
                     <th>Aantal</th>
                     <th>Prijs</th>
-                    <th>Totaal Prijs</th>
+                    <th></th>
                 </tr>
+                {% set totalPrice = 0 %}
                 {% for product in Products %}
                 <tr>
                     <td>
@@ -32,19 +33,25 @@
                         {{ product.Product.Prijs }}
                     </td>
                     <td>
-                        {{ product.Product.Prijs * product.Aantal}}
+                        <a class="btn btn-danger" href="{{ path('product_del', {'id': product.Product.id}) }}">Remove</a>
                     </td>
                 </tr>
+                    {% set totalPrice = totalPrice + (product.Aantal * product.Product.Prijs)|number_format(2, '.', ',') %}
                 {% else %}
-                <tr>
-                    <td colspan="6">no records found</td>
-                </tr>
+                    <tr>
+                        <td colspan="6">no records found</td>
+                    </tr>
                 {% endfor %}
+                {% if totalPrice != null %}
+                    <tr>
+                        <td colspan="3"></td>
+                        <th colspan="1">Totaal prijs : </th>
+                        <td colspan="1">{{ totalPrice }}</td>
+                        <td colspan="1">
+                            <a class="btn btn-secondary" href="{{ path('checkout') }}">Checkout</a>
+                        </td>
+                    </tr>
+                {% endif %}
             </table>
-            {% if Products != null %}
-            <div style="display: flex; justify-content:flex-end">
-                    <a class="btn btn-secondary" href="{{ path('checkout') }}">Checkout</a>
-                </div>
-            {% endif %}
 </div>
 {% endblock %}
