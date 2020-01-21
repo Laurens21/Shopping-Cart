@@ -22,7 +22,9 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+    {% endblock %}
 </head>
 <body style="color:white ; position: relative; min-height: 100vh; padding-bottom: 5rem; font-family: 'Arial Black' sans-serif; background-color: #138496">
 <header style="margin-bottom: 20px">
@@ -51,6 +53,29 @@
             </ul>
             {% endif %}
         </div>
+        <div class="navbar navbar-inverse" role="navigation">
+            <div class="blockMain ">
+                  {% if app.user %}
+                      {% set mainMenu = [
+                          {'path': 'fos_user_security_logout', 'name' : 'Logout'}
+                      ] %}          
+                  {% else %}
+                      {% set mainMenu = [
+                          {'path': 'fos_user_security_login',         'name': 'Login' },
+                          {'path': 'fos_user_registration_register',  'name': 'Register' }
+                      ] %}          
+                  {% endif %}
+              <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                  {% for item in mainMenu %}
+                    <li class="nav-item"{{ app.request.get('_route') == item['path'] ? ' class="active"' : '' }}>
+                        <a class="nav-link text-white" href="{{ path(item['path']) }}">{{ item['name'] }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div><!--/.navbar-collapse -->
+            </div>
+          </div>
     </nav>
 </header>
 <div class="bg-dark" style="padding: 20px; max-width: 75%; margin: 0 auto;">{% block login_register %}{% endblock %}{% block body %}{% endblock %}</div>
