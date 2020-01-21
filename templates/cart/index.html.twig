@@ -30,7 +30,7 @@
                         <a class="btn btn-secondary" href="{{ path('product_remove', {'id': product.Product.id}) }}">-</a> {{ product.Aantal }} <a class="btn btn-secondary" href="{{ path('product_add', {'id': product.Product.id}) }}">+</a>
                     </td>
                     <td>
-                        {{ product.Product.Prijs }}
+                        {{ product.Product.Prijs|number_format(0, '', '.') }}
                     </td>
                     <td>
                         <a class="btn btn-danger" href="{{ path('product_del', {'id': product.Product.id}) }}">Remove</a>
@@ -46,7 +46,7 @@
                     <tr>
                         <td colspan="3"></td>
                         <th colspan="1">Totaal prijs : </th>
-                        <td colspan="1">{{ totalPrice }}</td>
+                        <td colspan="1">{{ totalPrice|number_format(0, '', '.') }}</td>
                         <td colspan="1">
                             <a class="btn btn-secondary" href="{{ path('checkout') }}">Checkout</a>
                         </td>
