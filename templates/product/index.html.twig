@@ -35,11 +35,15 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6"><a class="btn btn-success" href="{{ path('product_new') }}">Create new</a></td>
             </tr>
         {% endfor %}
         </tbody>
+        {% if products != null %}
+            <td colspan="4"></td>
+            <td colspan="1">
+                <a class="btn btn-success" href="{{ path('product_new') }}">Create new</a>
+            </td>
+        {% endif %}
     </table>
-
-    <a class="btn btn-success" href="{{ path('product_new') }}">Create new</a>
 {% endblock %}
