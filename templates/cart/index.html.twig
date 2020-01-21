@@ -5,7 +5,7 @@
 {% block body %}
 <div class="example-wrapper">
         <h1>Winkelwagen</h1>
-            <table class="table" style="text-align: center;">
+            <table class="table" style="text-align: center; ">
                 <tr>
                     <th>Naam</th>
                     <th>Categorie</th>
@@ -26,8 +26,8 @@
                     <td>
                         {{ product.Product.omschrijving }}
                     </td>
-                    <td>
-                        {{ product.Aantal }}
+                    <td style="display: flex; justify-content:space-around; align-items:center">
+                        <a class="btn btn-secondary" href="{{ path('product_remove', {'id': product.Product.id}) }}">-</a> {{ product.Aantal }} <a class="btn btn-secondary" href="{{ path('product_add', {'id': product.Product.id}) }}">+</a>
                     </td>
                     <td>
                         {{ product.Product.Prijs }}
@@ -36,7 +36,7 @@
                         <a class="btn btn-danger" href="{{ path('product_del', {'id': product.Product.id}) }}">Remove</a>
                     </td>
                 </tr>
-                    {% set totalPrice = totalPrice + (product.Aantal * product.Product.Prijs)|number_format(2, '.', ',') %}
+                    {% set totalPrice = totalPrice + (product.Aantal * product.Product.Prijs) %}
                 {% else %}
                     <tr>
                         <td colspan="6">no records found</td>
